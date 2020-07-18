@@ -2,6 +2,7 @@ package com.alok.beerorderservice.bootstrap;
 
 import com.alok.beerorderservice.domain.Customer;
 import com.alok.beerorderservice.repositories.CustomerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,7 @@ public class BeerOrderBootStrap implements CommandLineRunner {
     public static final String BEER_2_UPC = "0631234300019";
     public static final String BEER_3_UPC = "0083783375213";
 
+    @Autowired
     private final CustomerRepository customerRepository;
 
     @Override

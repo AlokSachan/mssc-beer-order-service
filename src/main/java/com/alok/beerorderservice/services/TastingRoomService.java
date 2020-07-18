@@ -8,6 +8,7 @@ import com.alok.beerorderservice.web.model.BeerOrderDto;
 import com.alok.beerorderservice.web.model.BeerOrderLineDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +20,7 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class TastingRoomService {
+
 
     private final CustomerRepository customerRepository;
     private final BeerOrderService beerOrderService;
@@ -41,13 +43,10 @@ public class TastingRoomService {
     public void placeTastingRoomOrder(){
 
         List<Customer> customerList = customerRepository.findAllByCustomerNameLike(BeerOrderBootStrap.TASTING_ROOM);
-
         if (customerList.size() == 1){ //should be just one
             doPlaceOrder(customerList.get(0));
         } else {
             log.error("Too many or too few tasting room customers found");
-
-            customerList.forEach(customer -> log.debug(customer.toString()));
         }
     }
 
@@ -69,6 +68,7 @@ public class TastingRoomService {
                 .build();
 
         BeerOrderDto savedOrder = beerOrderService.placeOrder(customer.getId(), beerOrder);
+        log.info("saved bear order {}",savedOrder.getId());
 
     }
 
